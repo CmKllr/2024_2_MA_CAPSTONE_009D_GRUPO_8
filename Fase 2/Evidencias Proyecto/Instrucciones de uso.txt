@@ -1,0 +1,3 @@
+En caso de querer ejecutar de forma local por favor ejecutar en cmd el archivo "requirements.txt" que se encuentra en la
+carpeta principal del proyecto, en caso de querer utilizar la página en producción (en linea), por favor dirigirse a la 
+siguiente dirección URL:  https://petnco.onrender.com
