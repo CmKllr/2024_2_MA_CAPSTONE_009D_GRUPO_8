@@ -1,0 +1,152 @@
+{% load static %}
+
+<div class="row g-4">
+    <!-- Panel de Horarios -->
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="mb-0">
+                    <i class="fas fa-clock text-primary me-2"></i>
+                    Gestión de Horarios
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <!-- Formulario de Horarios -->
+                <form id="disponibilidadForm">
+                    {% csrf_token %}
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label fw-medium mb-2">
+                                <i class="fas fa-calendar-day text-primary me-1"></i>
+                                Fecha
+                            </label>
+                            <input type="date" class="form-control form-control-lg shadow-sm" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-medium mb-2">
+                                <i class="fas fa-hourglass-start text-primary me-1"></i>
+                                Hora Inicio
+                            </label>
+                            <input type="time" class="form-control form-control-lg shadow-sm" name="hora_inicio" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-medium mb-2">
+                                <i class="fas fa-hourglass-end text-primary me-1"></i>
+                                Hora Fin
+                            </label>
+                            <input type="time" class="form-control form-control-lg shadow-sm" name="hora_fin" required>
+                        </div>
+                    </div>
+
+                    <div class="border-top pt-4">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3 mb-md-0">
+                                    <i class="fas fa-plus me-2"></i> Agregar Horario
+                                </button>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-secondary" onclick="clonarAlSiguienteDia()">
+                                            <i class="fas fa-copy me-1"></i> Siguiente
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="clonarALaSemana()">
+                                            <i class="fas fa-calendar-week me-1"></i> Semana
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="mostrarModalClonarEspecifico()">
+                                            <i class="fas fa-calendar-day me-1"></i> Específico
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger" onclick="eliminarTodosLosHorarios()">
+                                        <i class="fas fa-trash-alt me-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Horarios -->
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h6 class="mb-0 fw-bold">
+                    <i class="fas fa-list-ul text-primary me-2"></i>
+                    Horarios del día
+                </h6>
+            </div>
+            <div class="card-body">
+                <div id="horariosDisponibles" class="horarios-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendario -->
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body p-3">
+                <div id="calendar" class="calendar-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.horario-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.horario-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.horario-text {
+    font-size: 0.95rem;
+    color: #495057;
+    font-weight: 500;
+}
+
+.horario-actions {
+    justify-self: end;
+}
+
+.delete-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.delete-button i {
+    font-size: 14px;
+}
+</style>
+
+<script src="{% static 'js/veterinaria/disponibilidad.js' %}"></script>
